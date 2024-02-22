@@ -1,0 +1,54 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import AllRoutes from "../AllRoutesFolder/AllRoutes";
+export default function Navbar() {
+  async function handleLogout() {
+    let res = await fetch(
+      // `http://localhost:3000/user/logout`,
+      "https://healthcareserver-production.up.railway.app/user/logout",
+
+      {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      }
+    );
+    let data = await res.json();
+    alert(data.msg);
+  }
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          // border: "2px solid black",
+          padding: "10px",
+          alignItems: "center",
+          backgroundColor:"lightGray",
+      // fontWeight:"600px"
+        }}
+      >
+        <Link style={{ textDecoration: "none" }} to="/" >
+          HOME
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/register">
+          REGISTER
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/login">
+          LOGIN
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/blogs">
+          RECORDS
+        </Link>
+        <button
+          onClick={handleLogout}
+          style={{ padding: "5px", cursor: "pointer" }}
+        >
+          LOGOUT
+        </button>
+      </div>
+      <AllRoutes />
+    </>
+  );
+}
